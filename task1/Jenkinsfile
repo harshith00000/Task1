@@ -29,7 +29,7 @@ pipeline {
         stage('Package') {
             steps {
                 dir('Task1/task1') {
-                    sh 'mvn package'
+                    sh 'mvn clean package'
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build, Test, Package and Deploy Successful'
+            echo 'Pipeline Successful'
         }
         failure {
             echo 'Pipeline Failed'
