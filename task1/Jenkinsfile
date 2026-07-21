@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/harshith00000/Task1.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('Task1/task1') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('Task1/task1') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                dir('Task1/task1') {
+                    sh 'mvn package'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                dir('Task1/task1') {
+                    sh '''
+                    cp target/*.war /path/to/tomcat/webapps/
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build, Test and Deploy Successful'
+        }
+        failure {
+            echo 'Pipeline Failed'
+        }
+    }
+}
