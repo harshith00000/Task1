@@ -37,7 +37,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 dir('task1') {
-                    sh 'cp target/*.war /path/to/tomcat/webapps/'
+                    sh 'cp target/*.war /var/lib/tomcat10/webapps/'
                 }
             }
         }
